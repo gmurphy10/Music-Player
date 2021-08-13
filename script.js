@@ -1,12 +1,12 @@
-const musicContainer = document.querySelector('.music-container')
-const playBtn = document.querySelector('#play')
-const prevBtn = document.querySelector('#prev')
-const nextBtn = document.querySelector('#next')
-const audio = document.querySelector('#audio')
-const progress = document.querySelector('.progress')
-const progressContainer = document.querySelector('.progress-container')
-const title = document.querySelector('#title')
-const cover = document.querySelector('#cover')
+const musicContainer = document.querySelector('.music-container');
+const playBtn = document.querySelector('#play');
+const prevBtn = document.querySelector('#prev');
+const nextBtn = document.querySelector('#next');
+const audio = document.querySelector('#audio');
+const progress = document.querySelector('progress');
+const progressContainer = document.querySelector('progress-container');
+const title = document.querySelector('#title');
+const cover = document.querySelector('#cover');
 
 
 // Song Titles
@@ -75,6 +75,14 @@ function updateProgress(e) {
   progress.style.width = `${progressPercent}%`
 }
 
+// Set progress bar
+function setProgress(e) {
+  const width = this.clientWidth;
+  const clickX = e.offsetX;
+  const duration = audio.duration;
+
+  audio.currentTime = (clickX / width) * duration;
+}
 
 
 // Event Listeners
@@ -93,5 +101,9 @@ playBtn.addEventListener('click', () => {
 prevBtn.addEventListener('click', prevSong);
 nextBtn.addEventListener('click', nextSong);
 
+// Time/song update
 audio.addEventListener('timeupdate', updateProgress)
+
+// Click on progress bar
+progressContainer.addEventListener('click', setProgress);
 
